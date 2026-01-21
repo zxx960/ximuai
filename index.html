@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西牧AI - 源头AI供应商</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --accent-color: #7c3aed;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* 头部导航 */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 6rem 2rem 10rem;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+            position: relative;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* 商品展示区域 */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto 5rem;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .product-grid {
+            display: flex;
+            gap: 30px;
+            overflow-x: auto; 
+            padding: 20px 5px;
+            scrollbar-width: none;
+        }
+
+        .product-grid::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 商品卡片 - 去除了悬浮动画，保持静态稳重 */
+        .product-card {
+            background: var(--card-bg);
+            min-width: 320px;
+            flex: 1;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.03);
+            /* 移除了 transition 和 transform 动画 */
+        }
+
+        .product-image {
+            width: 100%;
+            height: 240px;
+            background-color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* 移除了图片的缩放动画 */
+        }
+
+        .product-info {
+            padding: 2rem;
+            text-align: center;
+            background: white;
+        }
+
+        .product-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: #1e293b;
+        }
+
+        .product-info p {
+            color: #64748b;
+            font-size: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .price {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0.5rem 0;
+        }
+
+        /* 按钮动画 - 保留并优化 */
+        .btn-buy {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease; /* 保持按钮过渡动画 */
+            margin-top: 1rem;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-3px); /* 按钮悬浮上移 */
+            box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-buy:active {
+            transform: translateY(-1px); /* 按钮点击反馈 */
+        }
+
+        /* 服务数据统计 */
+        .stats-section {
+            text-align: center;
+            padding: 6rem 1rem;
+            background: white;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .stats-number {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .stats-text {
+            font-size: 1.3rem;
+            color: #475569;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* 底部信息 */
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: #0f172a;
+            color: #64748b;
+        }
+
+        footer p:first-child {
+            color: #f8fafc;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            header { padding: 5rem 1.5rem 8rem; }
+            header h1 { font-size: 2.5rem; }
+            .product-grid {
+                flex-wrap: nowrap;
+                padding-bottom: 40px;
+                gap: 20px;
+            }
+            .product-card { min-width: 290px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>西牧AI</h1>
+        <p>源头AI供应商 · 专业、稳定、高效</p>
+    </header>
+
+    <div class="container">
+        <div class="product-grid" id="productGrid">
+            <!-- 商品卡片 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1675271591211-126ad94e495d?auto=format&fit=crop&q=80&w=400" alt="AI绘画软件">
+                </div>
+                <div class="product-info">
+                    <h3>西牧AI绘画版</h3>
+                    <p>一键生成超写实艺术大作</p>
+                    <div class="price">¥199 / 年</div>
+                    <button class="btn-buy" onclick="handleBuy('绘画版')">立即开通</button>
+                </div>
+            </div>
+
+            <!-- 商品卡片 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1673187115862-d81b239e731c?auto=format&fit=crop&q=80&w=400" alt="AI写作软件">
+                </div>
+                <div class="product-info">
+                    <h3>西牧AI灵感写作</h3>
+                    <p>文案策划与长文创作神器</p>
+                    <div class="price">¥149 / 年</div>
+                    <button class="btn-buy" onclick="handleBuy('写作版')">立即开通</button>
+                </div>
+            </div>
+
+            <!-- 商品卡片 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1664575196412-ed801e8333a1?auto=format&fit=crop&q=80&w=400" alt="AI助手软件">
+                </div>
+                <div class="product-info">
+                    <h3>西牧AI商务助手</h3>
+                    <p>全能型效率办公专家系统</p>
+                    <div class="price">¥299 / 年</div>
+                    <button class="btn-buy" onclick="handleBuy('商务版')">立即开通</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="stats-section">
+        <div class="stats-number" id="counter">0+</div>
+        <div class="stats-text">已为超过 5000 位客户提供优质服务</div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 西牧AI. All Rights Reserved.</p>
+        <p>官方认证 AI 软件源头供应商</p>
+    </footer>
+
+    <script>
+        // 数字增长动画（保持不变）
+        function animateCounter() {
+            const counterElement = document.getElementById('counter');
+            const target = 5000;
+            const duration = 2000; 
+            const startTime = performance.now();
+
+            const updateCount = (currentTime) => {
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / duration, 1);
+                const easeOutExpo = 1 - Math.pow(2, -10 * progress);
+                const currentCount = Math.floor(easeOutExpo * target);
+                counterElement.innerText = currentCount + "+";
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCount);
+                } else {
+                    counterElement.innerText = target + "+";
+                }
+            };
+            requestAnimationFrame(updateCount);
+        }
+
+        // 模拟购买弹窗
+        function handleBuy(productName) {
+            const overlay = document.createElement('div');
+            overlay.style = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);backdrop-filter:blur(5px);z-index:9999;display:flex;align-items:center;justify-content:center;";
+            
+            const modal = document.createElement('div');
+            modal.style = "background:white;padding:3rem;border-radius:24px;box-shadow:0 25px 50px rgba(0,0,0,0.2);text-align:center;max-width:400px;width:90%;";
+            modal.innerHTML = `
+                <div style="font-size:3rem;margin-bottom:1rem;">🚀</div>
+                <h3 style="font-size:1.5rem;margin-bottom:1rem;">确认开通</h3>
+                <p style="color:#64748b;margin-bottom:2rem;">您正在申请开通：<br><strong>${productName}</strong></p>
+                <button id="closeModal" style="padding:0.8rem 2rem;background:#2563eb;color:white;border:none;border-radius:50px;font-weight:600;cursor:pointer;width:100%;">我知道了</button>
+            `;
+            
+            overlay.appendChild(modal);
+            document.body.appendChild(overlay);
+            
+            document.getElementById('closeModal').onclick = () => overlay.remove();
+        }
+
+        window.onload = animateCounter;
+    </script>
+</body>
+</html>
