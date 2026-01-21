@@ -73,7 +73,7 @@
             display: none;
         }
 
-        /* 商品卡片 - 去除了悬浮动画，保持静态稳重 */
+        /* 商品卡片 */
         .product-card {
             background: var(--card-bg);
             min-width: 320px;
@@ -84,7 +84,6 @@
             display: flex;
             flex-direction: column;
             border: 1px solid rgba(0,0,0,0.03);
-            /* 移除了 transition 和 transform 动画 */
         }
 
         .product-image {
@@ -101,7 +100,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* 移除了图片的缩放动画 */
         }
 
         .product-info {
@@ -129,7 +127,7 @@
             margin: 0.5rem 0;
         }
 
-        /* 按钮动画 - 保留并优化 */
+        /* 按钮动画 */
         .btn-buy {
             display: inline-block;
             background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
@@ -139,7 +137,7 @@
             text-decoration: none;
             font-size: 1.1rem;
             font-weight: 600;
-            transition: all 0.3s ease; /* 保持按钮过渡动画 */
+            transition: all 0.3s ease;
             margin-top: 1rem;
             width: 100%;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
@@ -148,13 +146,13 @@
         }
 
         .btn-buy:hover {
-            transform: translateY(-3px); /* 按钮悬浮上移 */
+            transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
             filter: brightness(1.1);
         }
 
         .btn-buy:active {
-            transform: translateY(-1px); /* 按钮点击反馈 */
+            transform: translateY(-1px);
         }
 
         /* 服务数据统计 */
@@ -270,7 +268,7 @@
     </footer>
 
     <script>
-        // 数字增长动画（保持不变）
+        // 数字增长动画
         function animateCounter() {
             const counterElement = document.getElementById('counter');
             const target = 5000;
@@ -299,18 +297,23 @@
             overlay.style = "position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);backdrop-filter:blur(5px);z-index:9999;display:flex;align-items:center;justify-content:center;";
             
             const modal = document.createElement('div');
-            modal.style = "background:white;padding:3rem;border-radius:24px;box-shadow:0 25px 50px rgba(0,0,0,0.2);text-align:center;max-width:400px;width:90%;";
+            modal.style = "background:white;padding:3rem;border-radius:24px;box-shadow:0 25px 50px rgba(0,0,0,0.2);text-align:center;max-width:420px;width:90%; border: 1px solid #e2e8f0;";
             modal.innerHTML = `
-                <div style="font-size:3rem;margin-bottom:1rem;">🚀</div>
-                <h3 style="font-size:1.5rem;margin-bottom:1rem;">确认开通</h3>
-                <p style="color:#64748b;margin-bottom:2rem;">您正在申请开通：<br><strong>${productName}</strong></p>
-                <button id="closeModal" style="padding:0.8rem 2rem;background:#2563eb;color:white;border:none;border-radius:50px;font-weight:600;cursor:pointer;width:100%;">我知道了</button>
+                <div style="font-size:3.5rem;margin-bottom:1rem;">💡</div>
+                <h3 style="font-size:1.6rem;margin-bottom:1.5rem;color:#1e293b;">即刻开通服务</h3>
+                <div style="background:#f0f7ff; padding:1.5rem; border-radius:16px; margin-bottom:2rem; border:1px dashed #2563eb;">
+                    <p style="color:#2563eb; font-weight:700; font-size:1.2rem; margin-bottom:0.5rem;">添加微信开通</p>
+                    <p style="color:#1e293b; font-size:1.4rem; font-family:monospace; letter-spacing:1px; background:white; display:inline-block; padding:0.3rem 1rem; border-radius:8px;">zxx960</p>
+                </div>
+                <button id="closeModal" style="padding:0.9rem 2rem;background:#2563eb;color:white;border:none;border-radius:50px;font-weight:600;cursor:pointer;width:100%; transition:all 0.2s;">返回浏览</button>
             `;
             
             overlay.appendChild(modal);
             document.body.appendChild(overlay);
             
             document.getElementById('closeModal').onclick = () => overlay.remove();
+            document.getElementById('closeModal').onmouseover = function() { this.style.opacity = "0.9"; };
+            document.getElementById('closeModal').onmouseout = function() { this.style.opacity = "1"; };
         }
 
         window.onload = animateCounter;
